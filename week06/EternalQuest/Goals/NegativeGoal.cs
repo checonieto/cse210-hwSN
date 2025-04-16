@@ -2,12 +2,16 @@ namespace EternalQuest.Goals
 {
     public class NegativeGoal : Goal
     {
-        public NegativeGoal(string name, string description, int points) 
-            : base(name, description, points) { }
+        public NegativeGoal(string name, string description, int points) : base(name, description, points) { }
+
+        public override string GetSaveString()
+        {
+            return $"NegativeGoal|{Name}|{Description}|{Points}";
+        }
 
         public override int RecordEvent()
         {
-            return -_points; // Deduct points for negative habits
+            return -Points; // Deduct points for negative goals
         }
 
         public override string GetProgress()

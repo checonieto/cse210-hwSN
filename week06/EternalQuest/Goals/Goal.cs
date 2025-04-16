@@ -32,3 +32,12 @@ namespace EternalQuest.Goals
         }
     }
 }
+public abstract class Goal
+{
+    // ... existing code ...
+
+    public abstract string GetProgress();
+    public abstract string GetGoalType();
+    
+    // ... rest of the code ...
+}

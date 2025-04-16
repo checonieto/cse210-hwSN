@@ -64,7 +64,7 @@ class Program
 
     static void DisplayResult(string name, int square)
     {
-        Console.WriteLine{name}, the square of your number is {square}! *");
+        Console.WriteLine{name}, the square of your number is {square}! *";
         Console.WriteLine("Thanks for playing! You're now officially a math wizard");
     }
 }
