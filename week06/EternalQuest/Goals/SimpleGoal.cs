@@ -1,33 +1,33 @@
+// SimpleGoal.cs
 namespace EternalQuest.Goals
 {
     public class SimpleGoal : Goal
     {
-        public SimpleGoal(string name, string description, int points)
-            : base(name, description, points)
+        public bool IsCompleted { get; set; }
+
+        public SimpleGoal(string name, string description, int points) : base(name, description, points)
         {
+            IsCompleted = false;
         }
 
-        // Implement GetProgress
         public override string GetProgress()
         {
-            return _isCompleted ? "Completed" : "Not completed";
+            return IsCompleted ? "[X]" : "[ ]";
         }
 
-        // Implement GetGoalType
-        public override string GetGoalType()
-        {
-            return "Simple";
-        }
-
-        // Implement RecordEvent
         public override int RecordEvent()
         {
-            if (!_isCompleted)
+            if (!IsCompleted)
             {
-                _isCompleted = true;
-                return _points; // Return points when the goal is completed
+                IsCompleted = true;
+                return Points;
             }
-            return 0; // No points if already completed
+            return 0;
+        }
+
+        public override string GetSaveString()
+        {
+            return $"SimpleGoal|{Name}|{Description}|{Points}|{IsCompleted}";
         }
     }
 }

@@ -1,5 +1,6 @@
+// Program.cs
 using System;
-using EternalQuest;
+
 namespace EternalQuest
 {
     class Program
@@ -7,19 +8,19 @@ namespace EternalQuest
         static void Main(string[] args)
         {
             GoalManager manager = new GoalManager();
-
             string choice = "";
+
             while (choice != "7")
             {
-                Console.WriteLine("\nEternal Quest Menu");
+                Console.WriteLine("\nMenu:");
                 Console.WriteLine("1. Create New Goal");
                 Console.WriteLine("2. List Goals");
                 Console.WriteLine("3. Save Goals");
                 Console.WriteLine("4. Load Goals");
                 Console.WriteLine("5. Record Event");
-                Console.WriteLine("6. Display Score & Level");
-                Console.WriteLine("7. Quit");
-                Console.Write("Choose an option: ");
+                Console.WriteLine("6. Display Score and Level");
+                Console.WriteLine("7. Exit");
+                Console.Write("Select an option: ");
                 choice = Console.ReadLine();
 
                 switch (choice)
@@ -44,7 +45,6 @@ namespace EternalQuest
                         manager.DisplayLevel();
                         break;
                     case "7":
-                        Console.WriteLine("Goodbye!");
                         break;
                     default:
                         Console.WriteLine("Invalid option.");

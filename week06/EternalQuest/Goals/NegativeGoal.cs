@@ -1,27 +1,33 @@
+// NegativeGoal.cs
 namespace EternalQuest.Goals
 {
     public class NegativeGoal : Goal
     {
-        public NegativeGoal(string name, string description, int points) : base(name, description, points) { }
+        public bool IsCompleted { get; set; }
 
-        public override string GetSaveString()
+        public NegativeGoal(string name, string description, int points) : base(name, description, points)
         {
-            return $"NegativeGoal|{Name}|{Description}|{Points}";
-        }
-
-        public override int RecordEvent()
-        {
-            return -Points; // Deduct points for negative goals
+            IsCompleted = false;
         }
 
         public override string GetProgress()
         {
-            return "[⚠]";
+            return IsCompleted ? "[X]" : "[ ]";
         }
 
-        public override string GetGoalType()
+        public override int RecordEvent()
         {
-            return "NegativeGoal";
+            if (!IsCompleted)
+            {
+                IsCompleted = true;
+                return -Points; // Deduct points
+            }
+            return 0;
+        }
+
+        public override string GetSaveString()
+        {
+            return $"NegativeGoal|{Name}|{Description}|{Points}|{IsCompleted}";
         }
     }
 }

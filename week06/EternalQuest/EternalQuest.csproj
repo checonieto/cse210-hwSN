@@ -1,8 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
+    <OutputType>Console</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="GoalManager.cs" />
+    <Compile Include="Goals\Goal.cs" />
+    <Compile Include="Goals\SimpleGoal.cs" />
+    <Compile Include="Goals\EternalGoal.cs" />
+    <Compile Include="Goals\ChecklistGoal.cs" />
+    <Compile Include="Goals\NegativeGoal.cs" />
+  </ItemGroup>
+
 </Project>

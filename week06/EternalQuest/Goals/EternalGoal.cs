@@ -1,34 +1,25 @@
+// EternalGoal.cs
 namespace EternalQuest.Goals
 {
     public class EternalGoal : Goal
     {
-        private int _timesCompleted;
-
-        public EternalGoal(string name, string description, int points) 
-            : base(name, description, points)
+        public EternalGoal(string name, string description, int points) : base(name, description, points)
         {
-            _timesCompleted = 0;
-        }
-
-        public override int RecordEvent()
-        {
-            _timesCompleted++;
-            return _points;
         }
 
         public override string GetProgress()
         {
-            return "[∞]";
+            return "[ ]"; // Eternal goals are never "completed"
         }
 
-        public override string GetGoalType()
+        public override int RecordEvent()
         {
-            return "EternalGoal";
+            return Points;
         }
 
         public override string GetSaveString()
         {
-            return $"{GetGoalType()}|{_name}|{_description}|{_points}|{_timesCompleted}";
+            return $"EternalGoal|{Name}|{Description}|{Points}";
         }
     }
 }

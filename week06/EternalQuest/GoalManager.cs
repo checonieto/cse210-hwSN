@@ -1,12 +1,15 @@
+// GoalManager.cs
 using System;
 using System.Collections.Generic;
 using System.IO;
+using EternalQuest.Goals;
+
 
 namespace EternalQuest
 {
     public class GoalManager
     {
-        private List<Goal> _goals = new List<Goal>();
+        private List<Goal> _goals = new List<EternalQuest.Goals.Goal>();
         private int _score = 0;
 
         public void CreateNewGoal()
@@ -54,16 +57,10 @@ namespace EternalQuest
 
         public void ListGoals()
         {
-            if (_goals.Count == 0)
-            {
-                Console.WriteLine("No goals created yet.");
-                return;
-            }
-
             int i = 1;
             foreach (var goal in _goals)
             {
-                Console.WriteLine($"{i}. {goal.GetProgress()} {goal.GetName()} ({goal.GetDescription()})");
+                Console.WriteLine($"{i}. {goal.GetProgress()} {goal.Name} ({goal.Description})");
                 i++;
             }
         }
@@ -107,54 +104,33 @@ namespace EternalQuest
                 switch (type)
                 {
                     case "SimpleGoal":
-                        var simple = new SimpleGoal(parts[1], parts[2], int.Parse(parts[3]));
-                        if (parts.Length > 4 && bool.Parse(parts[4])) simple.RecordEvent();
-                        _goals.Add(simple);
+                        _goals.Add(new SimpleGoal(parts[1], parts[2], int.Parse(parts[3])));
                         break;
                     case "EternalGoal":
-                        var eternal = new EternalGoal(parts[1], parts[2], int.Parse(parts[3]));
-                        if (parts.Length > 4) 
-                        {
-                            for (int j = 0; j < int.Parse(parts[4]); j++)
-                                eternal.RecordEvent();
-                        }
-                        _goals.Add(eternal);
+                        _goals.Add(new EternalGoal(parts[1], parts[2], int.Parse(parts[3])));
                         break;
                     case "ChecklistGoal":
-                        var checklist = new ChecklistGoal(parts[1], parts[2], int.Parse(parts[3]), 
-                            int.Parse(parts[6]), int.Parse(parts[7]));
-                        if (bool.Parse(parts[4])) checklist.RecordEvent();
-                        for (int j = 0; j < int.Parse(parts[5]); j++)
-                            checklist.RecordEvent();
-                        _goals.Add(checklist);
+                        _goals.Add(new ChecklistGoal(parts[1], parts[2], int.Parse(parts[3]), int.Parse(parts[6]), int.Parse(parts[7])));
                         break;
                     case "NegativeGoal":
                         _goals.Add(new NegativeGoal(parts[1], parts[2], int.Parse(parts[3])));
                         break;
                 }
             }
+
             Console.WriteLine("Goals loaded!");
         }
 
         public void RecordEvent()
         {
-            if (_goals.Count == 0)
-            {
-                Console.WriteLine("No goals to record.");
-                return;
-            }
-
             ListGoals();
             Console.Write("Which goal did you complete? ");
-            if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= _goals.Count)
+            int index = int.Parse(Console.ReadLine()) - 1;
+            if (index >= 0 && index < _goals.Count)
             {
-                int earned = _goals[index-1].RecordEvent();
+                int earned = _goals[index].RecordEvent();
                 _score += earned;
                 Console.WriteLine($"Points earned: {earned}");
-            }
-            else
-            {
-                Console.WriteLine("Invalid selection.");
             }
         }
 
